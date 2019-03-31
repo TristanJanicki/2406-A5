@@ -8,7 +8,8 @@ var colour      = require('colour');
 
 
 //mongoose.connect('mongodb://localhost/shoppingApp');
-mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
+// db name yardAndGarage
+mongoose.connect("mongodb+srv://ecommerceAdmin:ecommerceAdminPw1@comp2406a5-nj8mr.mongodb.net/yardAndGarage?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true, });
 
 function deleteVariants(callback)
 {
