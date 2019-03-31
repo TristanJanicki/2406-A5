@@ -16,7 +16,7 @@ var MongoStore        = require('connect-mongo')(session);
 var mongoose          = require('mongoose');
 var PORT              = 3000
 
-mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
+mongoose.connect("mongodb+srv://ecommerceAdmin:ecommerceAdminPw1@comp2406a5-nj8mr.mongodb.net/test?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true, });
 
 var index = require('./routes/index');
 var users = require('./routes/users');
