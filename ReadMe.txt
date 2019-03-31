@@ -25,7 +25,7 @@ npm start
 then you can access from localhost at
 http://localhost:3000
 or if you are hosting on a remote server like openstack it might be:
-http://134.117.216.34:3000
+https://tristanzon.herokuapp.com/
 
 5) Login to the app using the dummy user for project:
 username : admin@admin.com

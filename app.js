@@ -14,7 +14,7 @@ var session           = require('express-session');
 var passport          = require('passport');
 var MongoStore        = require('connect-mongo')(session);
 var mongoose          = require('mongoose');
-var PORT              = process.env.PORT || 3000
+var PORT              = 3000
 
 mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
 
