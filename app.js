@@ -16,7 +16,7 @@ var MongoStore        = require('connect-mongo')(session);
 var mongoose          = require('mongoose');
 var PORT              = 3000
 
-mongoose.connect("mongodb+srv://ecommerceAdmin:ecommerceAdminPw1@comp2406a5-nj8mr.mongodb.net/test?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true, });
+mongoose.connect("mongodb+srv://ecommerceAdmin:ecommerceAdminPw1@comp2406a5-nj8mr.mongodb.net/yardAndGarage?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true, });
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -141,6 +141,6 @@ app.listen(PORT, err => {
     console.log(`To Test:`)
     console.log('http://localhost:3000')
 
-    
+
   }
 })
