@@ -201,8 +201,13 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     shipping: true,
     total: req.query.payment.total
   })
-
   newOrder.save()
+
+  decreaseInventory(req.session.items, (success)=>{
+    if(success === true){
+      console.log("Successfully decreased quantity of items bought.")
+    }
+  })
 });
 
 router.get('/checkout-cancel', ensureAuthenticated, function (req, res) {

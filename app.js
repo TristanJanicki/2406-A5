@@ -140,6 +140,7 @@ app.listen(PORT, err => {
     console.log(`Server listening on port: ${PORT}`)
     console.log(`To Test:`)
     console.log('http://localhost:3000')
+    console.log('https://tristanzon.herokuapp.com/')
 
 
   }
