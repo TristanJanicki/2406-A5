@@ -108,8 +108,8 @@ router.post('/checkout-process', function (req, res) {
       payment_method: 'paypal'
     },
     redirect_urls: {
-      return_url: 'http://localhost:3000/checkout/checkout-success',
-      cancel_url: 'http://localhost:3000/checkout/checkout-cancel'
+      return_url: 'https://tristanzon.herokuapp.com/checkout/checkout-success',
+      cancel_url: 'https://tristanzon.herokuapp.com/checkout/checkout-cancel'
     },
     transactions: [{
       amount: {
