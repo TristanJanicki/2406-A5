@@ -70,13 +70,13 @@ router.post('/apply-discount', ensureAuthenticated, function (req, res, next) {
         totalPrice = parseFloat(totalPrice.toFixed(2))
         cart.discountPrice = totalPrice
         req.session.cart = cart;
-        console.log(req.session.cart)
+        //console.log(req.session.cart)
         res.render('checkout', { title: 'Checkout Page', items: cart.generateArray(), totalPriceAfterDiscount: totalPrice, totalDiscount: totalDiscount, actualPrice: cart.totalPrice, discountPercentage: discount.percentage, bodyClass: 'registration', containerWrapper: 'container' });
       }
       else {
         cart.discountPrice = 0;
         req.session.cart = cart;
-        console.log(req.session.cart)
+        //console.log(req.session.cart)
         res.render('checkout', { title: 'Checkout Page', items: cart.generateArray(), totalPrice: cart.totalPrice, discountCode: discountCode, bodyClass: 'registration', containerWrapper: 'container', msg: "This discount code is not applicable" });
       }
     }
@@ -182,10 +182,10 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     } else {
       if (payment.state === "approved") {
         console.log('payment completed successfully')
-        console.log(payment)
-        console.log("Request.user: ", req.user)
-        console.log("Request.session.cart: ", req.session.cart)
-        console.log("Request.payment: ", req.payment)
+        // console.log(payment)
+        // console.log("Request.user: ", req.user)
+        // console.log("Request.session.cart: ", req.session.cart)
+        // console.log("Request.payment: ", req.payment)
       
       
         let newOrder = new Order({
