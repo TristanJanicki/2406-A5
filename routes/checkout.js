@@ -148,7 +148,7 @@ router.post('/checkout-process', function (req, res) {
 
           let newOrder = new Order({
             orderID: payment.id,
-            userName: req.user.fullname,
+            userName: (payment.user.fullname) ? payment.user.fullname : payment.fullname,
             orderDate: Date().toString(),
             shipping: true,
             address: (req.query.address) ? req.query.address : "Address Not Available",
