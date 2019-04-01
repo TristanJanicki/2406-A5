@@ -168,6 +168,7 @@ router.post('/checkout-process', function (req, res) {
         if (payment.state === "approved") {
           console.log('payment completed successfully')
           console.log(payment)
+          req.session.cart = {}
         } else {
           console.log('payment unsuccessfull')
         }
@@ -190,18 +191,23 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     containerWrapper: 'container'
   });
 
-  let paymentId = req.query.paymentId
-  let payerId = req.query.payerId
-  let token = req.query.token
-
   let newOrder = new Order({
-    orderID: paymentId,
+    orderID: req.query.paymentId,
     userName: req.user.username,
     orderDate: payment.create_time,
     shipping: true,
+    address: (req.query.address) ? req.query.address : "Address Not Entered",
     total: req.query.payment.total
   })
-  newOrder.save()
+  Order.create(newOrder, function(err, res){
+    if(err){
+      console.log("Creation of Order Failed")
+      console.log(err)
+    }else{
+      console.log("Creation of Order Succeeded")
+      console.log(res)
+    }
+  })
 
   decreaseInventory(req.session.items, (success)=>{
     if(success === true){

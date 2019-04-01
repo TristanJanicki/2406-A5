@@ -254,7 +254,6 @@ router.get('/order-history', ensureAuthenticated, function(req, res, next){
     {
       console.log("Failed on router.get('/order-history')\nError:".error, e.message.error + "\n")
       e.status = 406; next(e);
-      
     }
     else
     {
