@@ -116,22 +116,19 @@ router.post('/checkout-process', function (req, res) {
         total: totalPrice,
         currency: 'CAD'
       },
-      description: cart.userId + ":" + totalPrice
+      description: cart.userId + " : " + totalPrice
     }]
   });
-
-  let paymentId;
-  let payerId;
-
   (async () => {
 
 
     await paypal.payment.create(payReq, function (err, payment) {
       var links = {}
+      console.log("Payment: ", payment)
 
       if (err) {
         console.log("payment.create error")
-        console.log(JSON.stringify(err))
+        console.log(err.details)
       } else {
         console.log("payment.create not in error")
         payment.links.forEach(l => {
@@ -141,40 +138,21 @@ router.post('/checkout-process', function (req, res) {
           }
         })
 
-        paymentId = payment.id
-        payerId = { payer_id: String(cart.userId).substring(0, 20) }
+        req.session.cart.paymentId = payment.id
+        req.session.cart.payerId = { payer_id: String(cart.userId).substring(0, 20) }
 
-        // if (links.hasOwnProperty('approval_url')) {
-        //   //either of these two could work
-        //   //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-        //   console.log("redirecting to approval url")
-        //   res.redirect(302, links['approval_url'].href)
-        // } else {
-        //   //either of these two could work
-        //   //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-        //   res.redirect(302, '/checkout/checkout-cancel')
-        // }
-      }
-    })
-
-
-
-    await paypal.payment.execute(paymentId, payerId, function (error, payment) {
-      if (error) {
-        console.log("payment.execute error")
-        console.log("XXX: ", error)
-        console.log("XXX")
-      } else {
-        if (payment.state === "approved") {
-          console.log('payment completed successfully')
-          console.log(payment)
-          req.session.cart = {}
+        if (links.hasOwnProperty('approval_url')) {
+          //either of these two could work
+          //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+          console.log("redirecting to approval url")
+          res.redirect(302, links['approval_url'].href)
         } else {
-          console.log('payment unsuccessfull')
+          //either of these two could work
+          //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+          res.redirect(302, '/checkout/checkout-cancel')
         }
       }
     })
-
 
     //console.log("Result = ", result)
 
@@ -190,6 +168,28 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     title: 'Successful',
     containerWrapper: 'container'
   });
+
+  let paymentId = req.session.cart.paymentId
+  let payerId = req.session.cart.payerId
+
+
+  await paypal.payment.execute(paymentId, payerId, function (error, payment) {
+    if (error) {
+      console.log("payment.execute error")
+      console.log("XXX: ", error)
+      console.log("XXX")
+    } else {
+      if (payment.state === "approved") {
+        console.log('payment completed successfully')
+        console.log(payment)
+        req.session.cart = {}
+      } else {
+        console.log('payment unsuccessfull')
+      }
+    }
+  })
+
+
 
   console.log("Request.user: ", req.user)
   console.log("Request.session.cart: ", req.session.cart)
