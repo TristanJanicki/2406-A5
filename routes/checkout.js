@@ -173,7 +173,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   let payerId = req.session.cart.payerId
 
 
-  await paypal.payment.execute(paymentId, payerId, function (error, payment) {
+  paypal.payment.execute(paymentId, payerId, function (error, payment) {
     if (error) {
       console.log("payment.execute error")
       console.log("XXX: ", error)
@@ -182,42 +182,41 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
       if (payment.state === "approved") {
         console.log('payment completed successfully')
         console.log(payment)
+        console.log("Request.user: ", req.user)
+        console.log("Request.session.cart: ", req.session.cart)
+        console.log("Request.payment: ", req.payment)
+      
+      
+        let newOrder = new Order({
+          orderID: req.query.paymentId,
+          userName: req.user.fullname,
+          orderDate: Date().toString(),
+          shipping: true,
+          address: (req.query.address) ? req.query.address : "Address Not Entered",
+          total: req.session.cart.totalPrice
+        })
+      
+        Order.create(newOrder, function (err, res) {
+          if (err) {
+            console.log("Creation of Order Failed")
+            console.log(err)
+          } else {
+            console.log("Creation of Order Succeeded")
+            console.log(res)
+          }
+        })
+      
+        decreaseInventory(req.session.cart.items, (success) => {
+          if (success === true) {
+            console.log("Successfully decreased quantity of items bought.")
+          }
+        })
+
         req.session.cart = {}
+
       } else {
         console.log('payment unsuccessfull')
       }
-    }
-  })
-
-
-
-  console.log("Request.user: ", req.user)
-  console.log("Request.session.cart: ", req.session.cart)
-  console.log("Request.payment: ", req.payment)
-
-
-  let newOrder = new Order({
-    orderID: req.query.paymentId,
-    userName: req.user.fullname,
-    orderDate: Date().toString(),
-    shipping: true,
-    address: (req.query.address) ? req.query.address : "Address Not Entered",
-    total: req.session.cart.totalPrice
-  })
-
-  Order.create(newOrder, function (err, res) {
-    if (err) {
-      console.log("Creation of Order Failed")
-      console.log(err)
-    } else {
-      console.log("Creation of Order Succeeded")
-      console.log(res)
-    }
-  })
-
-  decreaseInventory(req.session.items, (success) => {
-    if (success === true) {
-      console.log("Successfully decreased quantity of items bought.")
     }
   })
 });
