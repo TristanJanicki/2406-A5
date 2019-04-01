@@ -31,7 +31,7 @@ https://tristanzon.herokuapp.com/
 username : admin@admin.com
 password : admin
 username : tristanjanicki@gmail.com
-password : yardPw1
+password : 2406pw1
 
 5) Important
 Before starting application please make sure your mongo database runs.

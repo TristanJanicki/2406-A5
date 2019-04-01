@@ -199,14 +199,9 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
           total: req.session.cart.totalPrice
         })
       
-        Order.create(newOrder, function (err, res) {
-          if (err) {
-            console.log("Creation of Order Failed")
-            //console.log(err)
-          } else {
-            console.log("Creation of Order Succeeded")
-            //console.log(res)
-          }
+        newOrder.save((e, r)=>{
+          if(e) console.log(e)
+          console.log("New Order Saved")
         })
       
         decreaseInventory(req.session.cart.items, (success) => {
