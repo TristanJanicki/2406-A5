@@ -156,7 +156,10 @@ router.post('/checkout-process', function (req, res) {
           })
         
           newOrder.save((e, r)=>{
-            if(e) console.log(e)
+            if(e){
+              console.log("error saving order")
+              console.log(e)
+            }
             console.log("New Order Saved")
           })
 
