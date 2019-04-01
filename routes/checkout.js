@@ -144,16 +144,16 @@ router.post('/checkout-process', function (req, res) {
         paymentId = payment.id
         payerId = { payer_id: String(cart.userId).substring(0, 20) }
 
-        if (links.hasOwnProperty('approval_url')) {
-          //either of these two could work
-          //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-          console.log("redirecting to approval url")
-          res.redirect(302, links['approval_url'].href)
-        } else {
-          //either of these two could work
-          //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-          res.redirect(302, '/checkout/checkout-cancel')
-        }
+        // if (links.hasOwnProperty('approval_url')) {
+        //   //either of these two could work
+        //   //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+        //   console.log("redirecting to approval url")
+        //   res.redirect(302, links['approval_url'].href)
+        // } else {
+        //   //either of these two could work
+        //   //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+        //   res.redirect(302, '/checkout/checkout-cancel')
+        // }
       }
     })
 
@@ -193,15 +193,16 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
 
   console.log("Request.user: ", req.user)
   console.log("Request.session.cart: ", req.session.cart)
-  console.log("Request.session.payment: ", req.session.payment)
+  console.log("Request.payment: ", req.payment)
+
 
   let newOrder = new Order({
     orderID: req.query.paymentId,
     userName: req.user.fullname,
-    orderDate: payment.create_time,
+    orderDate: Date().toString(),
     shipping: true,
     address: (req.query.address) ? req.query.address : "Address Not Entered",
-    total: req.query.payment.total
+    total: req.session.cart.totalPrice
   })
 
   Order.create(newOrder, function (err, res) {
