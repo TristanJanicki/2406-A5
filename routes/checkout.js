@@ -145,6 +145,22 @@ router.post('/checkout-process', function (req, res) {
           //either of these two could work
           //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
           console.log("redirecting to approval url")
+
+          let newOrder = new Order({
+            orderID: payment.id,
+            userName: req.user.fullname,
+            orderDate: Date().toString(),
+            shipping: true,
+            address: (req.query.address) ? req.query.address : "Address Not Available",
+            total: totalPrice
+          })
+        
+          newOrder.save((e, r)=>{
+            if(e) console.log(e)
+            console.log("New Order Saved")
+          })
+
+
           res.redirect(302, links['approval_url'].href)
         } else {
           //either of these two could work
@@ -189,20 +205,6 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         // console.log("Request.payment: ", req.payment)
       
         console.log("Req In Payment Succeeded: ", req)
-      
-        let newOrder = new Order({
-          orderID: paymentId,
-          userName: req.user.fullname,
-          orderDate: Date().toString(),
-          shipping: true,
-          address: (req.query.address) ? req.query.address : "Address Not Entered",
-          total: req.session.cart.totalPrice
-        })
-      
-        newOrder.save((e, r)=>{
-          if(e) console.log(e)
-          console.log("New Order Saved")
-        })
       
         decreaseInventory(req.session.cart.items, (success) => {
           if (success === true) {
