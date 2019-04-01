@@ -191,6 +191,11 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     containerWrapper: 'container'
   });
 
+  console.log("Request.query.user: ", req.query.user)
+  console.log("Request.user: ", req.user)
+  console.log("Request.cart: ", req.cart)
+  console.log("Request.query.payment: ", req.query.payment)
+
   let newOrder = new Order({
     orderID: req.query.paymentId,
     userName: req.user.username,
@@ -199,18 +204,19 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     address: (req.query.address) ? req.query.address : "Address Not Entered",
     total: req.query.payment.total
   })
-  Order.create(newOrder, function(err, res){
-    if(err){
+
+  Order.create(newOrder, function (err, res) {
+    if (err) {
       console.log("Creation of Order Failed")
       console.log(err)
-    }else{
+    } else {
       console.log("Creation of Order Succeeded")
       console.log(res)
     }
   })
 
-  decreaseInventory(req.session.items, (success)=>{
-    if(success === true){
+  decreaseInventory(req.session.items, (success) => {
+    if (success === true) {
       console.log("Successfully decreased quantity of items bought.")
     }
   })
