@@ -159,7 +159,7 @@ router.post('/checkout-process', function (req, res) {
 
 
 
-    paypal.payment.execute(paymentId, payerId, function (error, payment) {
+    await paypal.payment.execute(paymentId, payerId, function (error, payment) {
       if (error) {
         console.log("payment.execute error")
         console.log("XXX: ", error)
