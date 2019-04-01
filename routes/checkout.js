@@ -168,7 +168,7 @@ router.post('/checkout-process', function (req, res) {
         } else {
           //either of these two could work
           //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-          res.redirect(302, '/checkout/checkout-cancel')
+          res.redirect(302, 'https://tristanzon.herokuapp.com/checkout/checkout-cancel')
         }
       }
     })
