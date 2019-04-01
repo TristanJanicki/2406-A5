@@ -30,6 +30,8 @@ https://tristanzon.herokuapp.com/
 5) Login to the app using the dummy user for project:
 username : admin@admin.com
 password : admin
+username : tristanjanicki@gmail.com
+password : yardPw1
 
 5) Important
 Before starting application please make sure your mongo database runs.

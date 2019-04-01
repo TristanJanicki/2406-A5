@@ -170,7 +170,8 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   });
 
   let paymentId = req.session.cart.paymentId
-  let payerId = req.session.cart.payerId
+  let payerId = req.session.payment.payerId
+  let createTime = req.session.payment.createTime
 
 
   paypal.payment.execute(paymentId, payerId, function (error, payment) {
@@ -188,7 +189,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
       
       
         let newOrder = new Order({
-          orderID: req.query.paymentId,
+          orderID: paymentId,
           userName: req.user.fullname,
           orderDate: Date().toString(),
           shipping: true,
