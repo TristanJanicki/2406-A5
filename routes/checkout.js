@@ -191,14 +191,13 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     containerWrapper: 'container'
   });
 
-  console.log("Request.query.user: ", req.query.user)
   console.log("Request.user: ", req.user)
-  console.log("Request.cart: ", req.cart)
-  console.log("Request.query.payment: ", req.query.payment)
+  console.log("Request.session.cart: ", req.session.cart)
+  console.log("Request.session.payment: ", req.session.payment)
 
   let newOrder = new Order({
     orderID: req.query.paymentId,
-    userName: req.user.username,
+    userName: req.user.fullname,
     orderDate: payment.create_time,
     shipping: true,
     address: (req.query.address) ? req.query.address : "Address Not Entered",
