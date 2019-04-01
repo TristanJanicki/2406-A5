@@ -148,7 +148,7 @@ function insertProducts(callback)
             _id: "5bedf31cc14d7822b39d9d43",
             imagePath: `/uploads/bag.jpg`,
             title: 'Bag',
-            description: 'A bag to store stuff in',
+            description: 'A bag to store stuff in.',
             price: 35.95,
             color: 'Gray',
             quantity: 10,
@@ -246,7 +246,7 @@ function insertProducts(callback)
         new Product({
             _id: "5bedf7ecc14d7822b39d9d55",
             imagePath: `/uploads/tape.jpg`,
-            title: 'Stapler',
+            title: 'Tape',
             description: 'A thing that is used to hold things together.',
             price: 99.99,
             color: 'Brown',
