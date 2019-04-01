@@ -124,7 +124,7 @@ router.post('/checkout-process', function (req, res) {
 
     await paypal.payment.create(payReq, function (err, payment) {
       var links = {}
-      console.log("Payment: ", payment)
+      //console.log("Payment: ", payment)
 
       if (err) {
         console.log("payment.create error")
@@ -162,6 +162,7 @@ router.post('/checkout-process', function (req, res) {
 
 router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   //TODO: IMPLEMENT PAYMENT THROUGH PAYPAL
+  console.log("checkout success")
   let cart = new Cart(req.session.cart);
   let totalPrice = (req.session.cart.discountPrice > 0) ? req.session.cart.discountPrice : cart.totalPrice;
   res.render('checkoutSuccess', {
@@ -169,8 +170,8 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     containerWrapper: 'container'
   });
 
-  let paymentId = req.session.cart.paymentId
-  let payerId = req.session.payment.payerId
+  let paymentId = req.query.paymentId
+  let payerId = req.query.payerId
   let createTime = req.session.payment.createTime
 
 
@@ -187,6 +188,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         // console.log("Request.session.cart: ", req.session.cart)
         // console.log("Request.payment: ", req.payment)
       
+        console.log("Req In Payment Succeeded: ", req)
       
         let newOrder = new Order({
           orderID: paymentId,
@@ -200,10 +202,10 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         Order.create(newOrder, function (err, res) {
           if (err) {
             console.log("Creation of Order Failed")
-            console.log(err)
+            //console.log(err)
           } else {
             console.log("Creation of Order Succeeded")
-            console.log(res)
+            //console.log(res)
           }
         })
       
@@ -216,7 +218,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         req.session.cart = {}
 
       } else {
-        console.log('payment unsuccessfull')
+        console.log('payment execution unsuccessfull')
       }
     }
   })
