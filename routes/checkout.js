@@ -144,6 +144,7 @@ router.post('/checkout-process', function (req, res) {
           console.log("redirecting to approval url")
 
           console.log("Check Out User: ", req.user)
+          console.log("Username: ", req.user.username)
 
           let newOrder = new Order({
             orderID: payment.id,
@@ -205,7 +206,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         // console.log("Request.session.cart: ", req.session.cart)
         // console.log("Request.payment: ", req.payment)
       
-        console.log("Req In Payment Succeeded: ", req)
+        //console.log("Req In Payment Succeeded: ", req)
       
         decreaseInventory(req.session.cart.items, (success) => {
           if (success === true) {
