@@ -168,11 +168,11 @@ function insertProducts(callback)
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
-            imagePath: `/uploads/highlighter.jpg`,
+            imagePath: `https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwib8_Xkp7HhAhUNZN8KHQRkDSEQjRx6BAgBEAU&url=%2Furl%3Fsa%3Di%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dimages%26cd%3D%26ved%3D%26url%3D%252Furl%253Fsa%253Di%2526rct%253Dj%2526q%253D%2526esrc%253Ds%2526source%253Dimages%2526cd%253D%2526cad%253Drja%2526uact%253D8%2526ved%253D2ahUKEwiviainp7HhAhXIhOAKHfKoDnYQjRx6BAgBEAU%2526url%253Dhttps%25253A%25252F%25252Fwww.indiamart.com%25252Fproddetail%25252Fhighlighter-marker-18255663248.html%2526psig%253DAOvVaw0XNnl7E_xOXCF4pDWmzHCI%2526ust%253D1554290991651800%26psig%3DAOvVaw0XNnl7E_xOXCF4pDWmzHCI%26ust%3D1554290991651800&psig=AOvVaw0XNnl7E_xOXCF4pDWmzHCI&ust=1554290991651800`,
             title: 'Highlighter',
             description: 'A highlighter to highlight stuff with.',
             price: 25.99,
-            color: 'Yellow',
+            color: 'Yellow, blue, pink, green, orange',
             quantity: 90,
             department: 'Office',
             category: 'Basics',
