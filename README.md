@@ -14,4 +14,3 @@ heroku logs url: https://dashboard.heroku.com/apps/tristanzon/logs (this is wher
 mongodb url: https://cloud.mongodb.com/v2/5ca1318f553855621cf5dcb7#clusters/detail/COMP2406A5 (both of you have been added as admins)
 
 
-What should we sell??? Drugs? An OCS scrapper would be cool af but probs frowned upon XD. BTW this could be a legit store front and we have free hosting with heroku and mogodb
