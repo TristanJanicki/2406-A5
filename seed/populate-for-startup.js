@@ -168,7 +168,7 @@ function insertProducts(callback)
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
-            imagePath: `/uploads/2be18c4f4c95cd9b17c7ba647250805c.jpeg`,
+            imagePath: `/uploads/highlighter-marker-500x500.jpg`,
             title: 'Highlighter',
             description: 'A highlighter to highlight stuff with.',
             price: 25.99,
