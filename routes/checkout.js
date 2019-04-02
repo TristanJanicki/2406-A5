@@ -214,8 +214,11 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
           }
         })
 
+        console.log("Old Session Car Items: ", req.session.cart.items)
+
         req.session.cart.items = {}
 
+        console.log("New Session Car Items: ", req.session.cart.items)
       } else {
         console.log('payment execution unsuccessfull')
       }
