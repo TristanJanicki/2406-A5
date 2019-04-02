@@ -101,6 +101,4 @@ Testing instructions:
 
 Issues:
 
-When executing a payment the payment gets created properly and the user gets redirected to the paypal pages but after they accept all the options the redirect back to 
-my website doesn't work because of headers already being set. :'( HOWEVER saving the order does happen. Now saving the order should only happen after a succesful transaction
-(unless I add a success flag to the db) but to prove that it works I made it happen before a succesful execution.
+Cart not getting emptied on payment success.
