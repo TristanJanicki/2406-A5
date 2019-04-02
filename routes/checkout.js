@@ -119,10 +119,10 @@ router.post('/checkout-process', function (req, res) {
       description: cart.userId + " : " + totalPrice
     }]
   });
-  (async () => {
 
+    // create a payment in the paypal api described way. 
 
-    await paypal.payment.create(payReq, function (err, payment) {
+    paypal.payment.create(payReq, function (err, payment) {
       var links = {}
       //console.log("Payment: ", payment)
 
@@ -148,7 +148,7 @@ router.post('/checkout-process', function (req, res) {
 
           let newOrder = new Order({
             orderID: payment.id,
-            userName: req.user.username,
+            username: req.user.username,
             address: "Address Not Available",
             orderDate: Date().toString(),
             shipping: true,
@@ -174,9 +174,6 @@ router.post('/checkout-process', function (req, res) {
     })
 
     //console.log("Result = ", result)
-
-
-  })()
 });
 
 router.get('/checkout-success', ensureAuthenticated, function (req, res) {
