@@ -70,6 +70,7 @@ password : admin
 username : tristanjanicki@gmail.com
 password : 2406pw1
 
+
 5) Important
 Before starting application please make sure your mongo database runs.
 
