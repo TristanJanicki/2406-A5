@@ -184,10 +184,10 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   console.log("checkout success")
   let cart = new Cart(req.session.cart);
   let totalPrice = (req.session.cart.discountPrice > 0) ? req.session.cart.discountPrice : cart.totalPrice;
-  res.render('checkoutSuccess', {
-    title: 'Successful',
-    containerWrapper: 'container'
-  });
+  // res.render('checkoutSuccess', {
+  //   title: 'Successful',
+  //   containerWrapper: 'container'
+  // });
 
   let paymentId = req.query.paymentId
   let payerId = req.query.payerId
