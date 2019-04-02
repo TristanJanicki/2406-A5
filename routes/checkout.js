@@ -192,7 +192,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         let newOrder = new Order({
           orderID: req.query.paymentId,
           username: req.user.username,
-          address: "Address Not Available",
+          address: req.user.address,
           orderDate: Date().toString(),
           shipping: true,
           total: totalPrice
