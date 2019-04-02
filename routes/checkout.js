@@ -189,7 +189,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   });
 
   let paymentId = req.query.paymentId
-  let payerId = req.query.PayerID
+  let payerId = {payer_id: req.query.PayerID}
 
 
   paypal.payment.execute(paymentId, payerId, function (error, payment) {
