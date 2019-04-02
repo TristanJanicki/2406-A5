@@ -168,11 +168,11 @@ function insertProducts(callback)
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
-            imagePath: `/uploads/highlighter.jpg`,
+            imagePath: `/uploads/highlighter-marker-500x500.jpg`,
             title: 'Highlighter',
             description: 'A highlighter to highlight stuff with.',
             price: 25.99,
-            color: 'Yellow',
+            color: 'Yellow, blue, pink, green, orange',
             quantity: 90,
             department: 'Office',
             category: 'Basics',
