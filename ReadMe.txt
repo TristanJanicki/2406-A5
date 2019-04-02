@@ -1,3 +1,40 @@
+2406 Assignment 5
+
+Authors:
+Nicole Laurin: 101043422
+Tristan Janicki: 101080372
+
+Contact:
+TristanJanicki@cmail.carleton.ca
+nicolejlaurin@cmail.carleton.ca
+
+Program:
+Building a node.js application that accesses a public API, and uses the express.js/bootstrap frameworks.
+
+
+Purpose:
+To provide an online storefront for users to purchase office supplies on. working within the code of a realistic Express.js application. The app implements an
+online store-front, or garage-sale, website call Yard & Garage where registered users can login
+and buy products.
+
+Version:
+Node.js version: v10.15.0
+OS: Windows version: 10.0.17763
+
+
+instructions:
+
+
+Launching instructions: THIS PROJECT IS INTENDED TO BE USED THROUGH THE HEROKU LINK. The redirects will NOT work otherwise so whilst you can launch/host it
+on your local machine once you start trying to navigate through the payment process it will stop working.
+
+npm install
+node app.js
+or
+npm start works on heroku (it says it does in the logs) but does not work on my local machine, oddly enough. It always says that the port is in use despite me checking and
+killing whatever is using it with netstat -ano | findstr :3000 and taskkill /F /PID (the pid that the netstat returned if any)
+
+
 To run this app you need a personal Paypal Account
 You can create on at paypal.com
 When you create the account you don't need to link a credit card or bank account at that
@@ -33,7 +70,6 @@ password : admin
 username : tristanjanicki@gmail.com
 password : 2406pw1
 
-
 5) Important
 Before starting application please make sure your mongo database runs.
 
@@ -61,36 +97,6 @@ If you check the code you will see that most of the functions and middleware pre
 You can also notice that sometimes used different way to do same thing because the aim is here to show
 you another approach to do that.
 
-
-2406 Assignment 5
-
-Authors:
-Nicole Laurin: 101043422
-Tristan Janicki: 101080372
-
-Contact:
-TristanJanicki@cmail.carleton.ca
-nicolejlaurin@cmail.carleton.ca
-
-Program:
-Building a node.js application that accesses a public API, and uses the express.js/bootstrap frameworks.
-
-
-Purpose:
-To provide an online storefront for users to purchase office supplies on.
-
-
-Node.js version: v10.15.0
-OS: Windows version: 10.0.17763
-
-Launching instructions: THIS PROJECT IS INTENDED TO BE USED THROUGH THE HEROKU LINK. The redirects will NOT work otherwise so whilst you can launch/host it
-on your local machine once you start trying to navigate through the payment process it will stop working.
-
-npm install
-node app.js
-or
-npm start works on heroku (it says it does in the logs) but does not work on my local machine, oddly enough. It always says that the port is in use despite me checking and
-killing whatever is using it with netstat -ano | findstr :3000 and taskkill /F /PID (the pid that the netstat returned if any)
 
 
 Testing instructions:
