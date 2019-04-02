@@ -120,60 +120,42 @@ router.post('/checkout-process', function (req, res) {
     }]
   });
 
-    // create a payment in the paypal api described way. 
+  // create a payment in the paypal api described way. 
 
-    paypal.payment.create(payReq, function (err, payment) {
-      var links = {}
-      //console.log("Payment: ", payment)
+  paypal.payment.create(payReq, function (err, payment) {
+    var links = {}
+    //console.log("Payment: ", payment)
 
-      if (err) {
-        console.log("payment.create error")
-        console.log(err.details)
-      } else {
-        console.log("payment.create not in error")
-        payment.links.forEach(l => {
-          links[l.rel] = {
-            href: l.href,
-            method: l.method
-          }
-        })
-
-        if (links.hasOwnProperty('approval_url')) {
-          //either of these two could work
-          //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-          console.log("redirecting to approval url")
-
-          console.log("Check Out User: ", req.user)
-          console.log("Username: ", req.user.username)
-
-          let newOrder = new Order({
-            orderID: payment.id,
-            username: req.user.username,
-            address: "Address Not Available",
-            orderDate: Date().toString(),
-            shipping: true,
-            total: totalPrice
-          })
-        
-          newOrder.save((e, r)=>{
-            if(e){
-              console.log("error saving order")
-              console.log(e)
-            }
-            console.log("New Order Saved")
-          })
-
-
-          res.redirect(302, links['approval_url'].href)
-        } else {
-          //either of these two could work
-          //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
-          res.redirect(302, 'https://tristanzon.herokuapp.com/checkout/checkout-cancel')
+    if (err) {
+      console.log("payment.create error")
+      console.log(err.details)
+    } else {
+      console.log("payment.create not in error")
+      payment.links.forEach(l => {
+        links[l.rel] = {
+          href: l.href,
+          method: l.method
         }
-      }
-    })
+      })
 
-    //console.log("Result = ", result)
+      if (links.hasOwnProperty('approval_url')) {
+        //either of these two could work
+        //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+        console.log("redirecting to approval url")
+
+        console.log("Check Out User: ", req.user)
+
+
+        res.redirect(302, links['approval_url'].href)
+      } else {
+        //either of these two could work
+        //res.render('checkoutCancel', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
+        res.redirect(302, 'https://tristanzon.herokuapp.com/checkout/checkout-cancel')
+      }
+    }
+  })
+
+  //console.log("Result = ", result)
 });
 
 router.get('/checkout-success', ensureAuthenticated, function (req, res) {
@@ -187,7 +169,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   });
 
   let paymentId = req.query.paymentId
-  let payerId = {payer_id: req.query.PayerID}
+  let payerId = { payer_id: req.query.PayerID }
 
 
   paypal.payment.execute(paymentId, payerId, function (error, payment) {
@@ -202,16 +184,37 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         // console.log("Request.user: ", req.user)
         // console.log("Request.session.cart: ", req.session.cart)
         // console.log("Request.payment: ", req.payment)
-      
+
         //console.log("Req In Payment Succeeded: ", req)
-      
+
+        console.log("Username: ", req.user.username)
+
+        let newOrder = new Order({
+          orderID: req.query.paymentId,
+          username: req.user.username,
+          address: "Address Not Available",
+          orderDate: Date().toString(),
+          shipping: true,
+          total: totalPrice
+        })
+
+        newOrder.save((e, r) => {
+          if (e) {
+            console.log("error saving order")
+            console.log(e)
+          }
+          console.log("New Order Saved")
+        })
+
+
+
         decreaseInventory(req.session.cart.items, (success) => {
           if (success === true) {
             console.log("Successfully decreased quantity of items bought.")
           }
         })
 
-        req.session.cart = {}
+        req.session.cart.items = {}
 
       } else {
         console.log('payment execution unsuccessfull')
