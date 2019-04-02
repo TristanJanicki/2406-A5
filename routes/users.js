@@ -41,11 +41,13 @@ router.post('/signin', function(req, res, next){
     var username        = req.body.username ;
     var fullName        = req.body.fullNameField;
     var password        = req.body.password;
+    var address         = req.body.addressField;
     var verifyPassword  = req.body.verifyPasswordField;
 
     req.checkBody('fullNameField',          'Full name is required').notEmpty();
     req.checkBody('username',             'Email is required').notEmpty();
     req.checkBody('username',             'Email is not valid').isEmail();
+    req.checkBody('addressField',      'Address is required').notEmpty();
     req.checkBody('password',          'Password is required').notEmpty();
     req.checkBody('password',          'Passwords have to match').equals(req.body.verifyPasswordField);
 
@@ -61,6 +63,7 @@ router.post('/signin', function(req, res, next){
         var newUser = new User({
             username    : username,
             password    : password,
+            address     : address,
             fullname    : fullName
         });
         User.createUser(newUser, function(err, user){

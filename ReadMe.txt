@@ -14,8 +14,7 @@ Building a node.js application that accesses a public API, and uses the express.
 
 Purpose:
 To provide an online storefront for users to purchase office supplies on. working within the code of a realistic Express.js application. The app implements an
-online store-front, or garage-sale, website call Yard & Garage where registered users can login
-and buy products.
+online store-front where registered users can login cand buy products.
 
 Version:
 Node.js version: v10.15.0
@@ -88,17 +87,6 @@ Shopping cart
 Order history
 Distinguishes user and admin
 Filters
-
-7) Comments
-I tried to add comments almost each of the functions and middleware and tried to explain what they are.
-Most important part is here: routes, models, and public>javascripts>custom.js
-
-If you check the code you will see that most of the functions and middleware pretty same.
-
-You can also notice that sometimes used different way to do same thing because the aim is here to show
-you another approach to do that.
-
-
 
 Testing instructions:
   - access directory of project files
