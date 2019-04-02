@@ -31,9 +31,8 @@ https://tristanzon.herokuapp.com/
 username : admin@admin.com
 password : admin
 username : tristanjanicki@gmail.com
-password : yardPw1
-username : nicoleelaurinn@hotmail.ca
-password : test
+password : 2406pw1
+
 
 5) Important
 Before starting application please make sure your mongo database runs.
@@ -61,3 +60,46 @@ If you check the code you will see that most of the functions and middleware pre
 
 You can also notice that sometimes used different way to do same thing because the aim is here to show
 you another approach to do that.
+
+
+2406 Assignment 5
+
+Authors:
+Nicole Laurin: 101043422
+Tristan Janicki: 101080372
+
+Contact:
+TristanJanicki@cmail.carleton.ca
+nicolejlaurin@cmail.carleton.ca
+
+Program:
+Building a node.js application that accesses a public API, and uses the express.js/bootstrap frameworks.
+
+
+Purpose:
+To provide an online storefront for users to purchase office supplies on.
+
+
+Node.js version: v10.15.0
+OS: Windows version: 10.0.17763
+
+Launching instructions: THIS PROJECT IS INTENDED TO BE USED THROUGH THE HEROKU LINK. The redirects will NOT work otherwise so whilst you can launch/host it
+on your local machine once you start trying to navigate through the payment process it will stop working.
+
+npm install
+node app.js
+or
+npm start works on heroku (it says it does in the logs) but does not work on my local machine, oddly enough. It always says that the port is in use despite me checking and
+killing whatever is using it with netstat -ano | findstr :3000 and taskkill /F /PID (the pid that the netstat returned if any)
+
+
+Testing instructions:
+  - access directory of project files
+  - enter "node app.js" in the terminal
+  - enter one of the following websites into an internet browser:
+		"http://localhost:3000/"
+	  	"https://tristanzon.herokuapp.com" <-- use this one :D
+
+Issues:
+
+Cart not getting emptied on payment success.

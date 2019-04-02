@@ -16,6 +16,8 @@ var MongoStore        = require('connect-mongo')(session);
 var mongoose          = require('mongoose');
 var PORT              = 3000
 
+// connection string to free mongodb.Atlas hosting.
+// 
 mongoose.connect("mongodb+srv://ecommerceAdmin:ecommerceAdminPw1@comp2406a5-nj8mr.mongodb.net/yardAndGarage?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true, });
 
 var index = require('./routes/index');
@@ -139,9 +141,6 @@ app.listen(PORT, err => {
   else {
     console.log(`Server listening on port: ${PORT}`)
     console.log(`To Test:`)
-    console.log('http://localhost:3000')
     console.log('https://tristanzon.herokuapp.com/')
-
-
   }
 })

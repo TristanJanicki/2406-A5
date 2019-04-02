@@ -94,19 +94,19 @@ function insertCategories(callback)
     [
         new Category({
             categoryName        : 'Basics'
-        }),
-        new Category({
-            categoryName        : 'Blazer'
-        }),
-        new Category({
-            categoryName        : 'Knitwear'
-        }),
-        new Category({
-            categoryName        : 'Jeans'
-        }),
-        new Category({
-            categoryName        : 'Jackets'
         })
+        // new Category({
+        //     categoryName        : 'Blazer'
+        // }),
+        // new Category({
+        //     categoryName        : 'Knitwear'
+        // }),
+        // new Category({
+        //     categoryName        : 'Jeans'
+        // }),
+        // new Category({
+        //     categoryName        : 'Jackets'
+        // })
     ]
 
     for (let i = 0; i < categories.length; i++){
@@ -124,13 +124,9 @@ function insertDepartments(callback)
     var departments =
     [
         new Department({
-            departmentName      : 'Women',
-            categories          : 'Basics,Blazer'
+            departmentName      : 'Office',
+            categories          : 'Basics'
 
-        }),
-        new Department({
-            departmentName      : 'Men',
-            categories          : 'Knitwear,Jeans,Jackets'
         })
     ]
 
@@ -150,99 +146,124 @@ function insertProducts(callback)
     [
         new Product({
             _id: "5bedf31cc14d7822b39d9d43",
-            imagePath: `/uploads/7568644802_1_1_1.jpg`,
-            title: 'Oversized Textured Top',
-            description: 'High collar top with short cuffed sleeves. Asymmetric hem with side slits.',
+            imagePath: `/uploads/bag.jpg`,
+            title: 'Bag',
+            description: 'A bag to store stuff in.',
             price: 35.95,
             color: 'Gray',
-            size: 'XS,S,M',
             quantity: 10,
-            department: 'Women',
+            department: 'Office',
             category: 'Basics',
         }),
         new Product({
             _id: "5bedf3b9c14d7822b39d9d45",
-            imagePath: `/uploads/5644641800_2_5_1.jpg`,
-            title: 'Tank Top',
-            description: 'Flowy V-neck camisole with spaghetti straps.',
+            imagePath: `/uploads/calendar.jpg`,
+            title: 'Calendar',
+            description: 'A calendar to write stuff on.',
             price: 29.99,
-            color: 'Black',
-            size: 'XS,S,XL',
+            color: 'White',
             quantity: 15,
-            department: 'Women',
+            department: 'Office',
             category: 'Basics',
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
-            imagePath: `/uploads/7568469251_2_1_1.jpg`,
-            title: 'Basic Top',
-            description: 'Round neck long sleeved shirt. ',
+            imagePath: `/uploads/highlighter.jpg`,
+            title: 'Highlighter',
+            description: 'A highlighter to highlight stuff with.',
             price: 25.99,
-            color: 'White',
-            size: 'XS',
+            color: 'Yellow',
             quantity: 90,
-            department: 'Women',
+            department: 'Office',
             category: 'Basics',
         }),
         new Product({
             _id: "5bedf55bc14d7822b39d9d4b",
-            imagePath: `/uploads/8197757093_2_2_1.jpg`,
-            title: 'Belted Plaid Blazer',
-            description: 'Flowy blazer with lapel collar and long sleeves. Self belt. Chest patch pockets and welt pockets at hip. Front double-breasted button closure.',
+            imagePath: `/uploads/paper.jpg`,
+            title: 'Paper',
+            description: 'A box of papers to write stuff on.',
             price: 79.99,
             color: 'Black',
-            size: 'S,M,L',
             quantity: 4,
-            department: 'Women',
-            category: 'Blazer',
+            department: 'Office',
+            category: 'Basics',
         }),
         new Product({
             _id: "5bedf5eec14d7822b39d9d4e",
-            imagePath: `/uploads/1775300615_1_1_1.jpg`,
-            title: 'Perl Knit Swear',
-            description: 'Purl-stitch knit sweater in a combination of textures. Ribbed trim.',
+            imagePath: `/uploads/pencil.jpg`,
+            title: 'Pencil',
+            description: 'A pencil to write stuff on paper with.',
             price: 79.99,
             color: 'Orange',
-            size: 'M,L',
             quantity: 5,
-            department: 'Men',
-            category: 'Knitwear',
+            department: 'Office',
+            category: 'Basics',
         }),
         new Product({
             _id: "5bedf6b5c14d7822b39d9d51",
-            imagePath: `/uploads/6186352407_2_1_1.jpg`,
-            title: 'Ripped Jeans',
-            description: 'Slim fit jeans with five pockets, washed effect, and rips on the legs. Zippered hem at in-seams. Front zip and metal button closure.',
+            imagePath: `/uploads/pencilSharpener.jpg`,
+            title: 'Pencil Sharpener',
+            description: 'A thing to sharpen pencils with.',
             price: 79.99,
             color: 'Dark Blue',
-            size: 'M,L',
             quantity: 80,
-            department: 'Men',
-            category: 'Jeans',
+            department: 'Office',
+            category: 'Basics',
         }),
         new Product({
             _id: "5bedf720c14d7822b39d9d52",
-            imagePath: `/uploads/5575380406_1_1_1.jpg`,
-            title: 'Basic Slim Jeans',
-            description: 'Basic slim-fit jeans with five pockets. Two side pockets, two back pockets, and one coin pocket. Belt loops. Front hidden zipper and button closure.',
+            imagePath: `/uploads/sharpie.jpg`,
+            title: 'Sharpie',
+            description: 'A thing to write permanent messages with.',
             price: 45.99,
-            color: 'Light Blue',
-            size: 'XS,S,M',
+            color: 'Black',
             quantity: 8,
-            department: 'Men',
-            category: 'Jeans',
+            department: 'Office',
+            category: 'Basics',
         }),
         new Product({
             _id: "5bedf7ecc14d7822b39d9d55",
-            imagePath: `/uploads/3548350700_2_1_1.jpg`,
-            title: 'Faux Leather Perforated Jacket',
-            description: 'Faux leather perforated jacket with high collar and long sleeves. Two front zip pockets. Lined. Interior pocket. Front zip closure. Ribbed elastic hem and cuffs.',
+            imagePath: `/uploads/stapler.jpg`,
+            title: 'Stapler',
+            description: 'A thing that is used to put staples through other things.',
             price: 99.99,
             color: 'Brown',
-            size: 'XS,M,XL',
             quantity: 12,
-            department: 'Men',
-            category: 'Jackets',
+            department: 'Office',
+            category: 'Basics',
+        }),
+        new Product({
+            _id: "5bedf7ecc14d7822b39d9d55",
+            imagePath: `/uploads/stickyNote.jpg`,
+            title: 'Sticky Note',
+            description: 'A thing that is used to put small notes on other things.',
+            price: 99.99,
+            color: 'Brown',
+            quantity: 12,
+            department: 'Office',
+            category: 'Basics',
+        }),
+        new Product({
+            _id: "5bedf7ecc14d7822b39d9d55",
+            imagePath: `/uploads/tape.jpg`,
+            title: 'Tape',
+            description: 'A thing that is used to hold things together.',
+            price: 99.99,
+            color: 'Brown',
+            quantity: 12,
+            department: 'Office',
+            category: 'Basics',
+        }),
+        new Product({
+            _id: "5bedf7ecc14d7822b39d9d55",
+            imagePath: `/uploads/taxReceipts.jpg`,
+            title: 'Tax Forms',
+            description: 'Various CRA tax forms.',
+            price: 99.99,
+            color: 'Brown',
+            quantity: 12,
+            department: 'Office',
+            category: 'Basics',
         })
     ];
 
@@ -264,42 +285,36 @@ function insertVariants(callback)
             productID: '5bedf31cc14d7822b39d9d43',
             imagePath: `/uploads/7568644710_1_1_1.jpg`,
             color: 'Beige',
-            size: 'S,L',
             quantity: 5,
         }),
         new Variant({
             productID: '5bedf3b9c14d7822b39d9d45',
             imagePath: `/uploads/5644641735_2_5_1.jpg`,
             color: 'Copper',
-            size: 'S,L,XL',
             quantity: 12,
         }),
         new Variant({
             productID: '5bedf448c14d7822b39d9d47',
             imagePath: `/uploads/7568469605_2_1_1.jpg`,
             color: 'Maroon',
-            size: 'XS,M,L',
             quantity: 4,
         }),
         new Variant({
             productID: '5bedf448c14d7822b39d9d47',
             imagePath: `/uploads/7568469822_2_1_1.jpg`,
             color: 'Charcool',
-            size: 'XS,L,XL',
             quantity: 5,
         }),
         new Variant({
             productID: '5bedf5eec14d7822b39d9d4e',
             imagePath: `/uploads/1775300806_2_1_1.jpg`,
             color: 'Stone',
-            size: 'S,XL',
             quantity: 35,
         }),
         new Variant({
             productID: '5bedf720c14d7822b39d9d52',
             imagePath: `/uploads/5575380407_1_1_1.jpg`,
             color: 'Dark Blue',
-            size: 'M,XL',
             quantity: 5,
         })
     ];
@@ -316,13 +331,21 @@ function insertVariants(callback)
 
 function insertAdmin(callback)
 {
-    var newUser = new User({
+    var newUser1 = new User({
         username    : 'admin@admin.com',
         password    : 'admin',
         fullname    : 'Tristan Janicki',
         admin       : true
     });
-    User.createUser(newUser, function(err, user){
+
+    var newUser2 = new User({
+        username: "tristan.janicki@gmail.com",
+        password: '2406pw1',
+        fullname: "Tristan Janicki 2",
+        admin: false
+    })
+
+    User.createUser(newUser1, function(err, user){
         if(err) throw err;
         console.log("Admin user inserted".green)
         console.log("Username: ", user.username + "\n" , "Password: admin");
@@ -349,10 +372,10 @@ function deleteDBEntitites(callback)
                             {
                                 insertProducts(function()
                                 {
-                                    insertVariants(function()
-                                    {
+                                    //insertVariants(function()
+                                    //{
                                         insertAdmin(callback)
-                                    })
+                                    //})
                                 })
                             })
                         })
