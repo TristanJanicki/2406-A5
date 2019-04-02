@@ -41,28 +41,25 @@ router.post('/signin', function(req, res, next){
     var username        = req.body.username ;
     var fullName        = req.body.fullNameField;
     var password        = req.body.password;
-    var address         = req.body.addressField;
     var verifyPassword  = req.body.verifyPasswordField;
-    
+
     req.checkBody('fullNameField',          'Full name is required').notEmpty();
     req.checkBody('username',             'Email is required').notEmpty();
     req.checkBody('username',             'Email is not valid').isEmail();
     req.checkBody('password',          'Password is required').notEmpty();
-    req.checkBody('addressField',      'Address is required').notEmpty();
     req.checkBody('password',          'Passwords have to match').equals(req.body.verifyPasswordField);
-   
+
     var errors = req.validationErrors();
     // If any error show it
     if (errors){
         res.render('signin', {
             errors:errors,
-            title: 'Signin', 
+            title: 'Signin',
             bodyClass: 'registration'
         });
     } else{
         var newUser = new User({
             username    : username,
-            address     : address,
             password    : password,
             fullname    : fullName
         });
@@ -80,7 +77,7 @@ router.post('/signin', function(req, res, next){
           var mailOptions = {
             to: username,
             from: 'no-reply@yardgarage.com',
-            subject: 'Welcome to Yard & Garage',
+            subject: 'Welcome to Ready Set Go',
             text: 'Hello, ' + fullName + '\n\n' +
                         'Thank you for creating an account\n'
           };
@@ -90,7 +87,7 @@ router.post('/signin', function(req, res, next){
           });
 
         req.flash('success_msg', 'You are registered and you can login');
-        
+
         res.redirect('/users/login');
     }
 });
@@ -123,19 +120,19 @@ passport.use(new LocalStrategy(function(username, password, done) {
             if(err) throw err;
             if(isMatch){
                 return done(null, user);
-            } 
+            }
             else{
                 return done(null, false, {message: 'Invalid password'});
             }
         });
     });
 }));
-    
+
 // Serialize user
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-    
+
 // Deserialize user
 passport.deserializeUser(function(id, done) {
     User.getUserById(id, function(err, user) {
@@ -160,7 +157,7 @@ router.post('/login', passport.authenticate('local',{failureRedirect: '/users/lo
                 console.log("Failed on router.get('/login')\nError:".error, e.message.error + "\n")
                 e.status = 406; next(e);
             }
-            else 
+            else
             {
                 let cart = new Cart(user.cart ? user.cart : {});
                 req.session.cart = cart;
@@ -184,7 +181,7 @@ router.get('/logout', function(req, res, next){
     let cart = req.session.cart
     if (cart && cart.userId == uid)
     {
-        User.findOneAndUpdate({"_id": uid}, 
+        User.findOneAndUpdate({"_id": uid},
         { $set: {
             "cart": req.session.cart
             }
@@ -201,7 +198,7 @@ router.get('/logout', function(req, res, next){
                 res.redirect('/');
             }
         });
-        
+
     }
     else
     {
@@ -211,7 +208,7 @@ router.get('/logout', function(req, res, next){
 
         res.redirect('/');
     }
-    
+
 })
 
 module.exports = router;
