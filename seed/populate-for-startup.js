@@ -168,7 +168,7 @@ function insertProducts(callback)
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
-            imagePath: `https://5.imimg.com/data5/NM/MX/MY-19364091/highlighter-marker-500x500.jpg`,
+            imagePath: `https://cf.shopee.ph/file/2be18c4f4c95cd9b17c7ba647250805c`,
             title: 'Highlighter',
             description: 'A highlighter to highlight stuff with.',
             price: 25.99,
