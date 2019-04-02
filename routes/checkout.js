@@ -13,7 +13,9 @@ var Discount = require('../models/discount');
 // PayPal Configuration
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
+  //client id: paypal (sandbox) account where money will be deposited when users buy products using their own paypal account.
   'client_id': 'AWwgBTMB1MdtTmMRnwZa9yNV_2ZRnrM_nFUq_MqqIWTVf_UY8aq-LXe14ENurK31UJ8oyb8YX-yvpaVj',
+  //
   'client_secret': 'EO7yM1sRrAGJk2WSm_PTGVdWZIy2p6hokUIeQZC_jZzABjQRXLHN1qQBfF56IeBSbz8Y9YIF6ga8c8Le'
 });
 
@@ -26,8 +28,8 @@ paypal.configure({
 //
 /////////////////////////////////////////////////////////////////////
 router.get('/', ensureAuthenticated, function (req, res, next) {
-  let cart = new Cart(req.session.cart);
-  req.session.cart.discountPrice = 0;
+  let cart = new Cart(req.session.cart); //creates new cart to shop
+  req.session.cart.discountPrice = 0; //payment is 0 to start
   res.render('checkout', { title: 'Checkout Page', items: cart.generateArray(), totalPrice: cart.totalPrice, bodyClass: 'registration', containerWrapper: 'container' });
 
 })
@@ -36,7 +38,7 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
 //
 // MIDDLEWARE - Handles GET requests for adding discount
 //
-// This basically rediercts to checkout page. I need this because
+// This basically redirects to checkout page. I need this because
 // I in the post request for apply discount I am rendering another page
 // so '/apply-discount' keeps in the address bar. Therefore I just
 // created redirect middleware for that reason.
@@ -57,23 +59,23 @@ router.get('/apply-discount', ensureAuthenticated, function (req, res, next) {
 router.post('/apply-discount', ensureAuthenticated, function (req, res, next) {
   let discountCode = req.body.discountCode;
   Discount.getDiscountByCode(discountCode, function (e, discount) {
-    if (e) {
+    if (e) { //Error: server cannot send data - not acceptable discount code
       console.log("Failed on router.get('/checkout/apply-discount')\nError:".error, e.message.error + "\n")
       e.status = 406; next(e);
     }
-    else {
+    else { //Discount code is applicable
       let cart = new Cart(req.session.cart);
       if (discount) {
-        let totalDiscount = (cart.totalPrice * discount.percentage) / 100
+        let totalDiscount = (cart.totalPrice * discount.percentage) / 100 //% of discount removed from purchase
         totalDiscount = parseFloat(totalDiscount.toFixed(2))
-        let totalPrice = cart.totalPrice - totalDiscount;
+        let totalPrice = cart.totalPrice - totalDiscount; //removing discount % from total checkout price
         totalPrice = parseFloat(totalPrice.toFixed(2))
         cart.discountPrice = totalPrice
         req.session.cart = cart;
         //console.log(req.session.cart)
         res.render('checkout', { title: 'Checkout Page', items: cart.generateArray(), totalPriceAfterDiscount: totalPrice, totalDiscount: totalDiscount, actualPrice: cart.totalPrice, discountPercentage: discount.percentage, bodyClass: 'registration', containerWrapper: 'container' });
       }
-      else {
+      else { //no discount
         cart.discountPrice = 0;
         req.session.cart = cart;
         //console.log(req.session.cart)
@@ -99,10 +101,10 @@ router.post('/checkout-process', function (req, res) {
   let totalPrice = (req.session.cart.discountPrice > 0) ? req.session.cart.discountPrice : cart.totalPrice;
 
   //TODO: IMPLEMENT PAYMENT THROUGH PAYPAL
-  // send paypal pay request 
+  // send paypal pay request
   // read result and set paypalSuccess accordingly
 
-  var payReq = JSON.stringify({
+  var payReq = JSON.stringify({ //taking to checkout page
     intent: 'sale',
     payer: {
       payment_method: 'paypal'
@@ -120,13 +122,12 @@ router.post('/checkout-process', function (req, res) {
     }]
   });
 
-  // create a payment in the paypal api described way. 
+  // create a payment in the paypal api described way.
 
   paypal.payment.create(payReq, function (err, payment) {
     var links = {}
-    //console.log("Payment: ", payment)
 
-    if (err) {
+    if (err) { //payment is unsuccessfull
       console.log("payment.create error")
       console.log(err.details)
     } else {
@@ -160,7 +161,7 @@ router.post('/checkout-process', function (req, res) {
 
 router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   //TODO: IMPLEMENT PAYMENT THROUGH PAYPAL
-  console.log("checkout success")
+  console.log("checkout success") //checkout is successful - proceed to payment
   let cart = new Cart(req.session.cart);
   let totalPrice = (req.session.cart.discountPrice > 0) ? req.session.cart.discountPrice : cart.totalPrice;
   res.render('checkoutSuccess', {
@@ -168,17 +169,18 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
     containerWrapper: 'container'
   });
 
+//getting payment info
   let paymentId = req.query.paymentId
   let payerId = { payer_id: req.query.PayerID }
 
 
   paypal.payment.execute(paymentId, payerId, function (error, payment) {
-    if (error) {
+    if (error) { //payment did not go through
       console.log("payment.execute error")
       console.log("XXX: ", error)
       console.log("XXX")
     } else {
-      if (payment.state === "approved") {
+      if (payment.state === "approved") { //payment went through
         console.log('payment completed successfully')
         // console.log(payment)
         // console.log("Request.user: ", req.user)
@@ -189,6 +191,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
 
         console.log("Username: ", req.user.username)
 
+        //getting client information
         let newOrder = new Order({
           orderID: req.query.paymentId,
           username: req.user.username,
@@ -198,6 +201,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
           total: totalPrice
         })
 
+        //saving order to database
         newOrder.save((e, r) => {
           if (e) {
             console.log("error saving order")
@@ -207,7 +211,7 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
         })
 
 
-
+        //decreasing inventory after purschase
         decreaseInventory(req.session.cart.items, (success) => {
           if (success === true) {
             console.log("Successfully decreased quantity of items bought.")
@@ -250,7 +254,7 @@ router.get('/buy-now/:id', ensureAuthenticated, function (req, res, next) {
       console.log("Failed on router.get('/add-to-bag/:id')\nError:".error, e.message.error + "\n")
       e.status = 406; next(e);
     }
-    else {
+    else { //adds poduct to new bag
       if (product) {
         cart.add(product, product.id);
         cart.userId = req.user._id;
@@ -289,14 +293,14 @@ router.get('/buy-now/:id', ensureAuthenticated, function (req, res, next) {
 /////////////////////////////////////////////////////////////////////
 function decreaseInventory(cartItems, callback) {
   for (let item in cartItems) {
-    let qty = cartItems[item].qty;
+    let qty = cartItems[item].qty; //amount of items in cart
     console.log("QTY IS: ", qty)
     Product.getProductByID(item, function (e, p) {
-      if (p) {
+      if (p) { //finding the product
         Product.findOneAndUpdate({ "_id": item },
           {
             $set: {
-              "quantity": p.quantity - qty,
+              "quantity": p.quantity - qty, //decreasing inventory amount of product
             }
           },
           { new: true }, function (e, result) {
@@ -330,13 +334,13 @@ function decreaseInventory(cartItems, callback) {
 //
 /////////////////////////////////////////////////////////////////////
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated()) { //client has account and is logged in (authenticated)
     Department.getAllDepartments(function (e, departments) {
       req.session.department = JSON.stringify(departments)
       return next();
     })
   }
-  else {
+  else { //client is not using account
     req.flash('error_msg', 'You are not logged in');
     res.redirect('/');
   }
