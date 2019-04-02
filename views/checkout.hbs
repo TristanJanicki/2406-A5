@@ -8,7 +8,7 @@
                 </div>
                <div class="checkout-description">
                    Hi <strong>{{user.fullname}},</strong> <br>
-                   Please review your items and press the pay button. You will enter your address information while your paying on PayPal 
+                   Please review your items and press the pay button. You will enter your address information while your paying on PayPal
                </div>
                {{>itemList}}
 
@@ -19,6 +19,9 @@
                         <input type="text" value="{{discountCode}}" name="discountCode" hidden>
                     {{/if}}
                     <div class="checkout-pay-wrapper">
+                      <input type="checkbox" id = "agree" name= "terms of agreement" value="true" onClick="handleSubmitButton()"><label for = "agree">I agree to all terms and conditions<label/>
+
+
                         <div class="pay-button">
                             <button type="submit" class="btn btn-primary pad10 full-width btn-success-only-border">Pay</button>
                         </div>
