@@ -143,6 +143,8 @@ router.post('/checkout-process', function (req, res) {
           //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
           console.log("redirecting to approval url")
 
+          console.log("Check Out User: ", req.user)
+
           let newOrder = new Order({
             orderID: payment.id,
             userId: cart.userId,
