@@ -138,9 +138,6 @@ router.post('/checkout-process', function (req, res) {
           }
         })
 
-        req.session.cart.paymentId = payment.id
-        req.session.cart.payerId = { payer_id: String(cart.userId).substring(0, 20) }
-
         if (links.hasOwnProperty('approval_url')) {
           //either of these two could work
           //res.render('checkoutSuccess', {title: 'Successful', containerWrapper: 'container', userFirstName: req.user.fullname})
@@ -148,7 +145,8 @@ router.post('/checkout-process', function (req, res) {
 
           let newOrder = new Order({
             orderID: payment.id,
-            userName: payment.fullname,
+            userId: cart.userId,
+            userName: ,
             orderDate: Date().toString(),
             shipping: true,
             address: (req.query.address) ? req.query.address : "Address Not Available",
@@ -184,14 +182,13 @@ router.get('/checkout-success', ensureAuthenticated, function (req, res) {
   console.log("checkout success")
   let cart = new Cart(req.session.cart);
   let totalPrice = (req.session.cart.discountPrice > 0) ? req.session.cart.discountPrice : cart.totalPrice;
-  // res.render('checkoutSuccess', {
-  //   title: 'Successful',
-  //   containerWrapper: 'container'
-  // });
+  res.render('checkoutSuccess', {
+    title: 'Successful',
+    containerWrapper: 'container'
+  });
 
   let paymentId = req.query.paymentId
-  let payerId = req.query.payerId
-  let createTime = req.session.payment.createTime
+  let payerId = req.query.PayerID
 
 
   paypal.payment.execute(paymentId, payerId, function (error, payment) {

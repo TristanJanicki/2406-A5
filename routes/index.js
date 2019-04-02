@@ -248,6 +248,7 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
 //
 /////////////////////////////////////////////////////////////////////
 router.get('/order-history', ensureAuthenticated, function(req, res, next){
+  console.log("Order History: ", req.user)
   Order.find({"username": req.user.username }, function(e, order)
   {
     if (e)
