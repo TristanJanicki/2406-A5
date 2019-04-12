@@ -126,7 +126,6 @@ function insertDepartments(callback)
         new Department({
             departmentName      : 'Office',
             categories          : 'Basics'
-
         })
     ]
 
